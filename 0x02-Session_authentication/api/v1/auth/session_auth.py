@@ -2,6 +2,7 @@
 """Session authentication module"""
 from .auth import Auth
 import uuid
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -32,3 +33,11 @@ class SessionAuth(Auth):
             return None
         user_id = self.user_id_by_session_id.get(session_id)
         return user_id
+
+    def current_user(self, request=None) -> User:
+        """
+        Returns a User instance based on a cookie.
+        """
+        cookie_value = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(cookie_value)
+        return User.get(user_id)

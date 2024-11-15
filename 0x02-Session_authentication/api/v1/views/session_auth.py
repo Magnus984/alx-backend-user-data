@@ -7,7 +7,7 @@ from typing import Tuple
 from flask import abort, jsonify, request
 
 
-@app_views.route('/auth_session/login', methods=['POST'],strict_slashes=False)
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_auth_view() -> Tuple[str, int]:
     """POST /api/v1/auth_session/login
     Return:

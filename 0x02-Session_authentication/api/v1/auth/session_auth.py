@@ -53,5 +53,6 @@ class SessionAuth(Auth):
             return False
         if not self.user_id_for_session_id(cookie_value):
             return false
-        del self.user_id_by_session_id[cookie_value]
+        if cookie_value in self.user_id_by_session_id:
+            del self.user_id_by_session_id[cookie_value]
         return True

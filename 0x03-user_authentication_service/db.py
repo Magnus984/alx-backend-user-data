@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-from typing import Union
+from typing import Union, NoReturn
 
 from user import Base, User
 
@@ -43,7 +43,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: dict) -> Union[User, None]:
+    def find_user_by(self, **kwargs: dict) -> Union[User, NoReturn]:
         """Finds user from database
         """
         for key in kwargs.keys():
@@ -54,4 +54,20 @@ class DB:
                 if row is None:
                     raise NoResultFound
                 return row
+            elif key == "id":
+                row = self._session.query(User).filter(
+                    User.id == kwargs.get(key)
+                    ).first()
+                return row
         raise InvalidRequestError
+
+    def update_user(self, user_id: int, **kwargs: dict) -> None:
+        """Updates user's attributes
+        """
+        user = self.find_user_by(id=user_id)
+        if user:
+            for key in kwargs.keys():
+                if key == "hashed_password":
+                    user.hashed_password = kwargs.get(key)
+                    return None
+            raise ValueError

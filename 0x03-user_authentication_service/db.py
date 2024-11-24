@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-from typing import Optional
+from typing import Union
 
 from user import Base, User
 
@@ -43,7 +43,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: dict) -> Optional[User]:
+    def find_user_by(self, **kwargs: dict) -> Union[list, None]:
         """Finds user from database
         """
         for key in kwargs.keys():

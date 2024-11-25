@@ -58,6 +58,15 @@ class DB:
                 row = self._session.query(User).filter(
                     User.id == kwargs.get(key)
                     ).first()
+                if row is None:
+                    raise NoResultFound
+                return row
+            elif key == "session_id":
+                row = self._session.query(User).filter(
+                    User.session_id == kwargs.get(key)
+                    ).first()
+                if row is None:
+                    raise NoResultFound
                 return row
         raise InvalidRequestError
 

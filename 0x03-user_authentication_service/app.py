@@ -26,7 +26,7 @@ def register_user():
     password = request.form["password"]
     if email and password:
         try:
-            user = auth.register_user(email, password)
+            user = AUTH.register_user(email, password)
             return jsonify({
                 "email": f"{email}", "message": "user created" 
             })

@@ -43,7 +43,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: dict) -> Union[User, NoReturn]:
+    def find_user_by(self, **kwargs: dict) -> User:
         """Finds user from database
         """
         for key in kwargs.keys():

@@ -18,7 +18,7 @@ def home() -> str:
 
 
 @app.route("/users", methods=['POST'], strict_slashes=False)
-def register_user():
+def register_user() -> str:
     """ POST /users
     Return:
       - JSON payload
@@ -38,8 +38,10 @@ def register_user():
 
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
-def login():
+def login() -> str:
     """POST /sessions
+    Return:
+      - JSON payload
     """
     email = request.form["email"]
     password = request.form["password"]

@@ -60,7 +60,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             new_uuid = _generate_uuid()
-            user.session_id = new_uuid
+            self._db.update_user(user.id, session_id=new_uuid)
             return user.session_id
         except NoResultFound:
             pass
@@ -79,8 +79,4 @@ class Auth:
         """Destroys a session
         """
         if user_id:
-            try:
-                user = self._db.find_user_by(id=user_id)
-                user.session_id = None
-            except NoResultFound:
-                pass
+            self._db.update_user(user_id, session_id=None)

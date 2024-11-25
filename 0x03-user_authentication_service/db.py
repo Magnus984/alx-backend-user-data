@@ -78,5 +78,9 @@ class DB:
             for key in kwargs.keys():
                 if key == "hashed_password":
                     user.hashed_password = kwargs.get(key)
+                    self._session.commit()
                     return None
+                elif key == "session_id":
+                    user.session_id = kwargs.get(key)
+                    self._session.commit()
             raise ValueError

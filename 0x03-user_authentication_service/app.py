@@ -39,7 +39,7 @@ def register_user():
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login():
-    """logs in user
+    """POST /sessions
     """
     email = request.form["email"]
     password = request.form["password"]
